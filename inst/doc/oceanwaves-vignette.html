@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Oceanwaves vignette</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Oceanwaves vignette</h1>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The <code>oceanwaves</code> package is primarily designed to estimate several summary statistics, including significant wave height and period, from a time series of fluctuating sea surface elevation data. The package also provides methods for dealing with data from bottom-mounted pressure transducers, including a function for correcting the pressure signal attenuation that affects sea surface elevations derived from pressure data collected in deeper waters.</p>
+<p>This vignette will make use of an included data set <code>wavedata</code> provided with the <code>oceanwaves</code> package. The first portion of the vignette will deal with handling raw pressure data from a bottom-mounted pressure transducer data logger, and the later portion will illustrate how to generate wave height and period estimates once you have a time series of sea surface elevation data.</p>
+</div>
+<div id="starting-out" class="section level1">
+<h1>Starting out</h1>
+<p>Begin by installing the package, if not already installed. The <code>oceanwaves</code> package makes use of several other packages that may also need to be installed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">install.packages</span>(<span class="st">&#39;oceanwaves&#39;</span>)</a></code></pre></div>
+<p>Load the installed package.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(oceanwaves)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; Loading required package: ggplot2</span></a></code></pre></div>
+<p>Load the provided <code>wavedata</code> data frame.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">data</span>(wavedata)</a></code></pre></div>
+<p>The loaded data frame contains 7200 records of 4 variables.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">options</span>(<span class="dt">digits.sec =</span> <span class="dv">3</span>)  <span class="co"># print fractional seconds</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">head</span>(wavedata)</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt;                   DateTime absPressure.mbar swPressure.mbar swDepth.m</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; 277201 2016-08-19 19:15:00           2063.3          1049.3  10.41813</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; 277202 2016-08-19 19:15:00           2065.5          1051.5  10.43998</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; 277203 2016-08-19 19:15:00           2067.8          1053.8  10.46281</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; 277204 2016-08-19 19:15:00           2070.4          1056.4  10.48863</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; 277205 2016-08-19 19:15:01           2071.8          1057.8  10.50253</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 277206 2016-08-19 19:15:01           2074.6          1060.6  10.53033</span></a></code></pre></div>
+<p>The columns are:</p>
+<ul>
+<li><code>DateTime</code> - A date and time stamp, in UTC time zone. The time stamps include a fractional seconds value, since the original data were recorded at 4 Hz (4 samples per second).</li>
+<li><code>absPressure.mbar</code> - The absolute pressure recorded by the bottom- mounted pressure data logger, in units of millibar. 1 mbar = 100 Pascal. These values include the pressure due to the atmosphere above the sea surface. The sea level pressure due to the atmosphere was 1014 mbar during this deployment, as recorded by a local airport weather station.</li>
+<li><code>swPressure.mbar</code> - The pressure due to the height of the seawater column above the bottom-mounted pressure data logger, units of millibar. The values in this column were created by subtracting the sea level air pressure (1014 mbar) from the absolute pressure in <code>absPressure.mbar</code>.</li>
+<li><code>swDepth.m</code> - The estimated depth of the seawater column (i.e. sea surface elevation), units of meters. This value is derived from the <code>swPressure.mbar</code> value, as shown below.</li>
+</ul>
+</div>
+<div id="converting-raw-pressure-data-to-sea-surface-elevation" class="section level1">
+<h1>Converting raw pressure data to sea surface elevation</h1>
+<p>We’ll start by showing the process of moving from absolute pressure recorded by a bottom-mounted pressure transducer into a time series of sea surface elevations. The first step is to remove the pressure signal due to the atmosphere above the water surface, so that we can get a proper estimate of the height (or depth, depending on your perspective) of the water column. Because air pressure changes with the weather, obtaining a record of local sea level air pressure from a weather station will be useful. For the example data set, we will assume the air pressure was a constant 1014 mbar (as recorded by a local airport weather station), and subtract that value from each of the absolute pressure values in the data set (effectively recreating the values in the <code>swPressure.mbar</code>) column.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">surfacepressure.mbar =<span class="st"> </span>wavedata<span class="op">$</span>absPressure.mbar <span class="op">-</span><span class="st"> </span><span class="dv">1014</span></a></code></pre></div>
+<p>This would also be an opportunity to subtract off any offset in the pressure transducer dataset that might be due to other factors, such as drift in the transducer’s baseline value (i.e. if the transducer didn’t read exactly 1014 mbar at the sea surface when the known sea surface air pressure was 1014 mbar).</p>
+<p>With the pressure due to the seawater alone calculated, we then want to convert pressure values into estimates of sea surface elevation so that they represent the physical height of the wave crests and troughs passing over the pressure transducer. The conversion from pressure to water column height relies on a few factors, most notably the water column temperature, since the density of the water above the pressure transducer will affect the recorded pressure. There’s also potential effects of salinity (water with more salt in it will be more dense and produce a higher pressure signal also), and even local gravity. Those values can vary through the water column and make for a very complicated calculation of the conversion from pressure to depth. However, the slight differences in calculated sea surface elevation that might come from precisely knowing temperature and salinity throughout the water column when converting pressure to water column height probably aren’t enough to radically bias our estimates of the height of the waves passing over the site during the short window of time typically used to estimated wave statistics (15-30 minutes). For our purposes, we will make use of a conversion function provided by the <code>oce</code> package, which is a dependency of the <code>oceanwaves</code> package and should already be installed. This conversion function, <code>swDepth</code>, assumes a constant temperature and salinity for the water column.</p>
+<p>The <code>oce</code> package assumes that the pressure readings are in <em>deci</em>bar rather than <em>milli</em>bar, so we first need to convert to dbar by dividing mbar by 100.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">surfacepressure.dbar =<span class="st"> </span>surfacepressure.mbar <span class="op">/</span><span class="st"> </span><span class="dv">100</span></a></code></pre></div>
+<p>We then call the <code>swDepth</code> function from the <code>oce</code> package. This function needs the latitude of the sampling site when you supply pressure data. The example data were collected near Los Angeles, California, so we’ll use 33.75<span class="math inline">\(\circ\)</span> as the latitude. The output depth will be in units of meters.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">swDepth.m =<span class="st"> </span>oce<span class="op">::</span><span class="kw">swDepth</span>(surfacepressure.dbar, <span class="dt">latitude =</span> <span class="fl">33.75</span>)</a></code></pre></div>
+</div>
+<div id="pressure-attenuation-correction" class="section level1">
+<h1>Pressure attenuation correction</h1>
+<p>If your sea surface elevation data were produced by a pressure transducer data logger mounted near the sea floor, rather than a surface buoy, the dynamic pressure signal that the data logger records will be muted to some degree depending on the depth of the data logger and the wave period. As a result, the water surface elevation record from the bottom-mounted sensor will be an underestimate of what the actual height of the water column was, and this underestimate gets worse as the depth of the sensor increases or the wave period gets shorter. The <code>oceanwaves</code> package provides a function <code>prCorr</code> that attempts to correct for this pressure signal attenuation and thus better recreate the actual water surface height fluctuations (a.k.a. waves). See Denny (1988) pg 61 and pgs 296-297 for a relatively simple explanation of the attenuation effect.</p>
+<p>The <code>prCorr</code> function needs a few arguments to work. In addition to the vector of sea surface elevations (in meters), you also need to provide the sampling frequency for the data logger (4 Hz in our <code>wavedata</code> example dataset), and the height of the data logger above the sea floor.</p>
+<p>Why does that height above the bottom matter? As a wave moves into shallower water, it begins to “feel” the bottom, which is what causes a wave to peak and break. The motion of water particles in the water column will be impacted by the interaction of the wave with the bottom, transitioning from nearly circular orbits near the surface to ellipsoidal orbits near the sea floor. This change in the orbital motion of the water particles affects the dynamic pressure signal recorded by the data logger. But a data logger need not always be mounted directly on the sea floor, such as the case of a data logger strapped to a pier piling in the middle of the water column rather than at the bottom. The degree to which a wave “feels” the seafloor is a function of the wavelength and depth of the water column, and the resulting modification of water particle motions depends on where in the water column a water particle is. For this reason, it is important to know where in the water column the pressure sensor sat, relative to the full depth of the water column at that site. In the case of our example <code>wavedata</code>, the pressure sensor was situated 10 cm above the seafloor, so we provide this value, in meters, as the <code>zpt</code> argument.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">swDepthCorrected.m =<span class="st"> </span><span class="kw">prCorr</span>(swDepth.m, <span class="dt">Fs =</span> <span class="dv">4</span>, <span class="dt">zpt =</span> <span class="fl">0.1</span>)</a></code></pre></div>
+<p>We’ll plot the corrected data and the uncorrected data on the same plot to show how the correction changes the estimated sea surface elevations.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">plot</span>(swDepthCorrected.m, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, </a>
+<a class="sourceLine" id="cb9-2" title="2">     <span class="dt">ylab =</span> <span class="st">&#39;Surface elevation, m&#39;</span>)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">lines</span>(swDepth.m, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">legend</span>(<span class="st">&#39;topright&#39;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&#39;Corrected&#39;</span>,<span class="st">&#39;Raw&#39;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;red&#39;</span>,<span class="st">&#39;blue&#39;</span>),</a>
+<a class="sourceLine" id="cb9-5" title="5">       <span class="dt">lty =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>As the comparison figure shows, the correction in surface elevation is not a trivial amount, and will substantially impact your estimates of surface wave heights. The <code>prCorr</code> function also has an argument <code>CorrLim</code> with defaults of <code>c(0.05, 0.33)</code> that specifies what range of wave frequencies the correction should be applied to. A frequency of 0.05 equals a wave period of 20 seconds, and a frequency of 0.33 equals a wave period of 3 seconds. These values are given as reasonable defaults for ocean waves, but you may have cause to change them depending on the circumstances of your pressure sensor data logger deployment. For instance, pressure sensors deployed in deeper water will not adequately register high frequency wind waves, so it may be desirable to change the upper limit from 0.33 Hz to a smaller value (= longer period).</p>
+<p>You may also notice the declining trend in the mean elevation of the sea surface. This is due to the falling tide during this collection interval. The pressure attenuation correction in <code>prCorr()</code> removes this trend when it estimates the mean water depth for purposes of the correction, and the calculations of wave statistics below also remove this trend before attempting to calculate the wave heights and periods.</p>
+</div>
+<div id="calculating-wave-statistics" class="section level1">
+<h1>Calculating wave statistics</h1>
+<p>Now we can move on to generating summary statistics for the sea surface elevation data. We will use two different approaches to arrive at roughly the same end results: estimates of significant wave height and wave period.</p>
+<div id="wave-statistics-using-a-zero-crossing-algorithm" class="section level2">
+<h2>Wave statistics using a zero-crossing algorithm</h2>
+<p>A zero-crossing algorithm for determining wave height and wave length should be relatively intuitive. If you want to describe the height of waves, and how often they come by, you can just establish what the still water level would be, and then measure the height and length of each wave based on when (and how high) the water level rises above the still water level (the start of a wave), then drops below, and finally rises above the still water level again (the end of the wave, and start of the next wave). If you start each wave as it rises above the still water level, this is an ‘up-crossing’ algorithm. Similarly, you could do the same routine, but start counting each wave when the water drops below the still water level instead, which is referred to as a ‘down-crossing’ algorithm. Using a zero-crossing algorithm (both up-crossing and down-crossing versions) is also referred to as wave-by-wave analysis or wave train analysis.</p>
+<p>The <code>oceanwaves</code> package implements an down-crossing algorithm in the function <code>waveStatsZC</code>, which should be supplied with a vector of water surface heights and the sampling frequency of the data (4 Hz for our example <code>wavedata</code>).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">zerocrossStats =<span class="st"> </span><span class="kw">waveStatsZC</span>(swDepthCorrected.m, <span class="dt">Fs =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">zerocrossStats</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt; $Hsig</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; [1] 0.5313988</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt; $Hmean</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt; [1] 0.3502191</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt; $H10</span></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; [1] 0.6438722</span></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt; $Hmax</span></a>
+<a class="sourceLine" id="cb10-13" title="13"><span class="co">#&gt; [1] 0.7724476</span></a>
+<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt; $Tmean</span></a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt; [1] 7.672747</span></a>
+<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt; $Tsig</span></a>
+<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt; [1] 9.75641</span></a></code></pre></div>
+<p>Multiple results are generated by <code>waveStatsZC</code>:</p>
+<ul>
+<li><p><code>Hsig</code> - Mean of the highest 1/3 of waves in the data set. Units = same as input surface heights.</p></li>
+<li><p><code>Hmean</code> - Overall mean wave height, for all waves (bigger than threshold if the threshold argument is used).</p></li>
+<li><p><code>H10</code> - Mean height of the upper 10% of all waves.</p></li>
+<li><p><code>Hmax</code> - Maximum wave height in the input data.</p></li>
+<li><p><code>Tmean</code> - Mean period of all waves (bigger than threshold if the threshold argument is used). Units = seconds.</p></li>
+<li><p><code>Tsig</code> - Mean period of <code>Hsig</code> (highest 1/3 of waves).</p></li>
+</ul>
+</div>
+<div id="wave-statistics-using-spectral-analysis" class="section level2">
+<h2>Wave statistics using spectral analysis</h2>
+<p>The other option for calculating wave statistics is through spectral analysis, transforming the wave height data from the time domain to the frequency domain. Spectral analysis is perhaps more commonly used these days, particularly onboard surface wave buoys to quickly distill wave records down into manageable summary values for transmission over limited bandwidth satellite or cellular connections. Spectral analysis produces a slightly different set of summary statistics as compared to the zero-crossing algorithm. In the <code>oceanwaves</code> package, we use the <code>waveStatsSP</code> function to carry out a spectral analysis of the surface height data.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">spectralStats =<span class="st"> </span><span class="kw">waveStatsSP</span>(swDepthCorrected.m, <span class="dt">Fs =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2">spectralStats</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; $h</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="co">#&gt; [1] 10.45144</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; $Hm0</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="co">#&gt; [1] 0.56511</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt; $Tp</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="co">#&gt; [1] 10.90909</span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-12" title="12"><span class="co">#&gt; $m0</span></a>
+<a class="sourceLine" id="cb11-13" title="13"><span class="co">#&gt; [1] 0.01995933</span></a>
+<a class="sourceLine" id="cb11-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-15" title="15"><span class="co">#&gt; $T_0_1</span></a>
+<a class="sourceLine" id="cb11-16" title="16"><span class="co">#&gt; [1] 8.288296</span></a>
+<a class="sourceLine" id="cb11-17" title="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-18" title="18"><span class="co">#&gt; $T_0_2</span></a>
+<a class="sourceLine" id="cb11-19" title="19"><span class="co">#&gt; [1] 7.598222</span></a>
+<a class="sourceLine" id="cb11-20" title="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-21" title="21"><span class="co">#&gt; $EPS2</span></a>
+<a class="sourceLine" id="cb11-22" title="22"><span class="co">#&gt; [1] 0.4357626</span></a>
+<a class="sourceLine" id="cb11-23" title="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-24" title="24"><span class="co">#&gt; $EPS4</span></a>
+<a class="sourceLine" id="cb11-25" title="25"><span class="co">#&gt; [1] 0.6597814</span></a></code></pre></div>
+<p>The most relevant output from <code>waveStatsSP</code> is probably:</p>
+<ul>
+<li><p><code>h</code> - Average water depth. Same units as input surface heights (typically meters).</p></li>
+<li><p><code>Hm0</code> - Significant wave height based on spectral moment 0. Same units as input surface heights (typically meters). This is approximately equal to the average of the highest 1/3 of the waves, as reported by the <code>Hsig</code> output from the <code>waveStatsZC</code> function.</p></li>
+<li><p><code>Tp</code> - Peak period, calculated from the frequency where the spectrum is maximal. Units of seconds. This is not directly comparable to the <code>Tmean</code> period produced by the <code>waveStatsZC</code> function.</p></li>
+<li><p><code>m0</code> - Estimated variance of time series (moment 0).</p></li>
+<li><p><code>T_0_1</code> - Average period <span class="math inline">\(m0/m1\)</span>, units seconds. Follows National Data Buoy Center’s method for calculating average period (APD). This is comparable to <code>Tmean</code> produced by the <code>waveStatsZC</code> function, but will not necessarily be equal.</p></li>
+<li><p><code>T_0_2</code> - Average period <span class="math inline">\((m0/m2)^{0.5}\)</span>, units seconds. Follows Scripps Institute of Oceanography’s method for calculating average period (APD) for their buoys. This is also comparable to <code>Tmean</code> produced by the <code>waveStatsZC</code> function, but will not necessarily be equal.</p></li>
+</ul>
+</div>
+<div id="plotting-the-wave-statistics-results" class="section level2">
+<h2>Plotting the wave statistics results</h2>
+<p>Both wave statistics also have built-in plots to show some information about the results. The zero-crossing function outputs frequency histograms of the number of waves in height bins and in period bins.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">waveStatsZC</span>(swDepthCorrected.m, <span class="dt">Fs =</span> <span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAJACAMAAABSRCkEAAAAeFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZpAAZrY6AAA6ADo6AGY6Ojo6ZrY6kNtmAABmADpmOgBmZmZmkJBmtrZmtv+QOgCQZgCQkGaQtpCQ2/+2ZgC2Zjq2tma225C2/7a2///bkDrb/9vb////tmb/25D//7b//9v///+VSgx3AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAUtklEQVR4nO2dD3ujuLWHybSpM3cbz25vfLeht112sJPv/w0LEthgx+bPD8QRvO/zTOI4OUKId4Qk4Dj5BBBIlq4AxA0CgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgcQwgT4OiePbHzNVB2JjkEBZ8upf5PUL2DpDBPo4nLXJnn/OUBmIjyECnfZv9cuckxg46IFAYuAYqOqCGANBxbBZ2GnvZ2H0P1DBOhBITCNQcmaS4iAehh3xtJh8HV+S5Ol9kuImJRnFcvVdCYNa0Pnz/b01oReKm5ZRm0YglWHrQMXcK92VL+9N4xFoawxdSKzWgu4tJCLQ1hh2CtsVfc+ufEUPBJ5BLXjaf/vDdUH5vVE0Am2NgS2Y+7nLbqLipgSBFmHiFkSgrYFAIIFAIIFAIIFAIIFAIIFAIIFAIHFuwdP+/vLgiOLCg0CL0GjBLEnG3ups4f4aBFqEdgsKDn1VXFAQaBGuWzDTHlxGoK3RasHyUml5y8/4hy4QaGtcWrB8ZMebIzx2ikBbozELu3un/JjiwoNAi8A6EEg0WjAtTmDqM8sItDUuLZi6AdBpv5umuOAg0CI0xkD+US8tcUt0AvE0osi5MercLdkjgTpT3EUnULCgtXJpDJ+75fjyYBDUneIOgbZGozHKh97vP/X+2SvB1DYE4rx3YeIUd9sQKFhQBAzZL3qg0EERcNmvHjmgu1PcIdCkQRHQWAfqMX/vTHGHQJMGRUBjHWiKvJkINGlQBNwsJI4rxcBcw7gLqxfo47DrG3N8uesaAk0aFAGX/cqTri6oHgE9GGoj0KRBEdB8KqNzFlZNvuiBQgVFwLD9Ou3L+RcChQqKgKH7lT69I1CwoAho7FdxEnv+mXZN5rPkFYFCBUVAYxD99J49/+xeDjq+/AWBAgVFQOt+oPIK18P7gaq/vD9fm6aZwl3uNh4UAa2FxFIgC3ckGj+sCNTgpgdKpY9yQqBJgyLgegyUdS4n9iwueClrDIqA9izs8R2Jw4oLXcoagyJg4v1CoEmDIgCBLAdFwKBrYQOKkzB+WBGowfV+iR8Ij0CTBkXAzX75D5QbWsq0N5QZP6wI1OBmv1hINBQUATf71X0pY1Bx4UqxHhTq6kxgrutoIjuHdRdCBUUlUOcTO8OKk7B9WBGoCetAhoMQKGQpKwyKSqAej1wMKW6aSm08KCqBqsd6uBpvKCgqgT4O3px7eTcGFidh+7AiUJPLKeyHv5Hj4UJioBR3tg8rAjW56YEe3ZEYKsWd7cOKQE0aYyB3L1n24I6yYAmmbB9WBGrSqKObhz0aAQVLcWf7sCJQkyF1pAcKHLQ2gYKluLN9WBGoSfsU1vVoc6AUd7YPKwI1aQ2iez3a3LO44KWsMCgqgfo/2vxVKdyROEdQVAL1erQ5SxI/DLqnGQJNGRSVQH0ebS4XifwdZwgUIigqgXo82uyn8e4zeREoRFBcAnU/2lwvJBadFAKFCIpMoE7OC4npDoFCBEUlUGOZ+S61NkVfhUABgqISqFem+nqE9HFAoABBUQmkPtR8XVzwUlYYFJVAJFewFxSVQJaKs31YEagJAhkOikcg6bOebotbpJQVBkUmUJ+JfL/iFillhUEIFLKUFQYhUMhSVhiEQCFLWWHQdgTihrJZgrYj0FVxi5SywqCYBJoiNccnAk0bNCotXmDrWEg0HBSuduNBIMNBCBSyF15hEAJZP0LGgxDI+hEyHjRuQ2FH3ghkOMh27dTIfsUZbwPbQbZrp0b2K854G9gOsl07NbJfccbbwHaQ7dqpkf2KM94GtoNs106N7Fec8TawHWS7dmMih6f5Nd4GtoNs125E5Ig0v8bbwHaQ7doNjxyTZNN4G9gOsl274ZH30/zeX9Ecty4KoQkiUI8eCLbGwDFQV5pf2BrD+q5pPhcTVkTgi/+wNuYWaNmhIfRl/AGeUJYlyl/1lmLYJQQyvKUYdgmBDG8phl1CIMNbimGXEMjwlmLYJQQyvKUYdgmBDG8phl1CIMNbimGXEMjwlmLYJS5lgAQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgcRMAuVJ8vT+5Q9zbslln5ntmdnr3UjneryytaHjS5Ls5tnO1ZayovGGf3DlPALlRbXyumqtH+bc0seheJHN1dzXu5HP9Xxuu/GKjZz2u1k21N5SVv4w3KBZBPJZGNLd7Q+zbun4Uu5+Jn1aTL8tfbqnvOcR6IvGC7FLH4fd55jDNItArSM562H9ovCZOrvrLWXP/zePQO3G+z7buf9qS7YEcrudN9sgn0mg28LTIFsqfpxpDNTaUP7tP/vZhnXtXbJ0CvOdQNUVtH6YdUv+nZmau72lsvefSaDWhrIyHaXvHGbe0ti5ztoEyuccQ1+2VCbYCiLQ04zdd3uXyp77+DL4f9/KTmHzZb663acQpzA/QPGDlXm3NHaouq5BdDbfKlBrS1mVFGWO49rakD+6Mw2l21saeaJY0zT+koJv9i2VzNQDtTbk85rO1H1/sQYyfEtrWkgccQYfuSXHXCvR7eW9YiNTfJx295YsjYFcH19WzM8fsjkvZTS2VJ1Y5tpWa58+Z7yU0dpQPufVmdaW0lFb4mIqSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSCAQSGxbIP94u08K05UHzCfKuPfG+Yd8vgQhJtm2QD43Tvpb6dFp/zizwI1AX/728V+tkG0L5JLinH78s0zg1JXFCYG+ZNsCuV4nf/7z8Fb1RqlLO1YlW3Jpy88pT077f7z4nGTVm96VIuLp96f36rdlXvlz1pfjy/+WKVaPL/OkMrPBtgVy6bmynftW/8ue3qt8Oc8/yxyXddKl074UqvpXvukEKtMy5UkpkP9Nswc6vjgFi7+YKcGfBTYuUP7886Pofqpvpx/v/rRWHvCid/LDoirtm/uh+OX5zdIV31elpTj1b5sCvZ6/rLYL2rhAxcCntKb4Vg+B8vJ8U2pQnMF8+rfq6Ds1ii/nN90fObnyqucpvrQFemt+WScbF6jod3KXhdB9K0c33/5dHuziXFacwfJmMtazQPWb5RsZAi1dgYVJX4shUClM+e1ysMuPGHhr59Rs90DVG/RAWxco/9vBzbj++utbNdpxnxdx2v/mhkHXS4VNRS5joAyBNsvxl+9+SPNUjZ9PezdvT91HJrhPGkh9l1Mrcn7zahZWC3RZjkSgDfBxcMs21TeX9tYJU31uTbnkU03BzwLVb57Xgb79v5+SuXfS5PnP6qIIAkE/rvO7H/++UEUWAIEk/LWQ66to+ZwZ842BQBr5V5+58q8ZP2bQGggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEggEEsME+jgkjm9/zFQdTzKKWasEdxjU7Fny6l/k9Yt5GOUCAi3CkGb/OJy1yZ5/zlCZmnEC0W0twZAWPO3f6pf5rCexcD0QAqmsqAcKFgQNBo6Bqi5oNWMgBFIZ1oKnvR85zNr/IFBMmGxBBIqHaVpw4lkNAsXDsBZMi8nX8SVJnt4nKe4eCBQPg1rQ+fP9vTWhF4q7CwLFw7B1oGLule7Kl/em8Qi0NYYuJFZrQfcWEhFoaww7he2KvmdXvqIHAs+gFjztv/3huqD83igagbbGuQVP+2TX/ee5n6zf/UsE2hqNFswKM9QrFAi0NdotKDuEQFvjugUz7X5DBNoarRYsRzjlTH38tVIE2hqXFiyvtHtzhLvFEGhrNGZhdy9wjSkufCkItAgTtyACbY1GC6bFCUy91RCBtsalBVM3ADrtd2NK4X6grdIYA/k7NLTnLRBoa5xbsH7kIkMgGMClBf0jF8cXVqJhAI0WLO9VvX+z6uDiQpeCQIvANB4kEAgkLi04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" /><!-- --></p>
+<p>The spectral analysis function generates a spectrum, with the peak period labeled. The significant wave height is not easily visualized from this method.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">waveStatsSP</span>(swDepthCorrected.m, <span class="dt">Fs =</span> <span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="useful-references" class="section level2">
+<h2>Useful references</h2>
+<p>Demirbilek, Z. and C.L. Vincent (2008). Water Wave Mechanics. Chapter 1 in Coastal Engineering Manual EM 1110-2-1100 Part 2. Vicksburg, MS, US Army Research and Development Center</p>
+<p>Denny, M. W. (1988). Biology and Mechanics of the Wave-Swept Environment. Princeton University Press, Princeton, New Jersey. 329 pgs. ISBN 0-691-08487-4</p>
+<p>Driver, J.S. (1980). A guide to sea wave recording. Institute of Oceanographic Sciences, Report 103, National Environmental Research Council, 51 pgs</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
